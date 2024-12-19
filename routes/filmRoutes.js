@@ -7,6 +7,7 @@ const {
   replaceFilmById,
   updateFilmDataById,
     createNewFilm,
+    deleteFilm,
 } = require("../models/filmFunctions");
 const { type } = require("os");
 
@@ -127,5 +128,25 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
+// deleting a film- route handler
+
+//try/catch 
+//listen for a delete request at /:id
+router.delete("/:id", async function (req, res) {
+try{
+  //searchedId variable saved as req.body (json.parse)
+  let searchedId = JSON.parse(req.params.id);
+  //use searchedId in function deleteFilm 
+  let deletedFilm = await deleteFilm(searchedId);
+  //respond with 200 deleted successfully and deleted film data 
+  res.status(200).json(deletedFilm)
+} catch (error) {
+  console.error(error);
+  res.status(500).json ({
+  success: false,
+  payload: null,
+});
+}
+});
 
 module.exports = router;

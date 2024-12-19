@@ -44,8 +44,20 @@ async function createNewFilm(newFilm) {
 }
 
 //function to delete film
-//search through film array and select by id
-//
+async function deleteFilm(id) {
+  //search through film array and select by id
+  let filmArray = await readFilmData();
+  //use findindexbyid to get index of film
+  let filmIndex= await getFilmIndexById(id);
+  //remove film from array with slice and index
+  if (filmIndex !== -1) {
+  let deletedObject = filmArray.splice(filmIndex, 1);
+  //return deleted object
+  await writeData(filmArray);
+  await assignIDs();
+  return(deletedObject);
+};
+  };
 
 
 // Getting a film by ID. IDs are dynamically updated before a film is fetched
@@ -114,6 +126,7 @@ module.exports = {
   replaceFilmById,
   updateFilmDataById,
   createNewFilm,
+  deleteFilm,
   
 
 };
