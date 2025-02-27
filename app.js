@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 // Use router for any requests. Define path name
-app.use("/films", filmsRouter);
+app.use("/foods", filmsRouter);
 
 /* export default app; Similarly here*/
 module.exports = app;
